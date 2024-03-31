@@ -1,0 +1,107 @@
+
+/*________________Projeto departamento________________*/
+
+/* resolva os exercicios abaixo */
+
+
+/*1#--Traga os funcionarios que trabalhem
+--no departamento de filmes OU no
+--departamento de roupas*/
+
+/*2#--O gestor de marketing pediu a lista das funcionarias que trabalham 
+no departamento de filmes ou no departamento lar. Ele necessita enviar
+um e-mail para as colaboradoras desses dois setores.*/
+
+/*#3----Traga os funcionarios do sexo masculino
+--ou os funcionarios que trabalhem no setor Jardim.*/
+
+
+/*________________________________________________________________________________*/
+
+/*CRIANDO O BANCO*/
+
+create database exercicio;
+
+use exercicio;
+
+create table funcionarios
+  (
+      idFuncionario integer,
+      nome varchar(100),
+      email varchar(200),
+      sexo varchar(10),
+      departamento varchar(100),
+      admissao varchar(10),
+      salario integer,
+      cargo varchar(100),
+      idRegiao int
+  );
+
+
+/*1#--Traga os funcionarios que trabalhem
+--no departamento de filmes OU no
+--departamento de roupas*/
+
+SELECT DEPARTAMENTO, COUNT(*)
+FROM FUNCIONARIOS
+WHERE 
+DEPARTAMENTO = 'FILMES';
+
+SELECT DEPARTAMENTO, COUNT(*)
+FROM FUNCIONARIOS
+WHERE 
+DEPARTAMENTO = 'ROUPAS';
+
++--------------+----------+
+| DEPARTAMENTO | COUNT(*) |
++--------------+----------+
+| Filmes       |       21 |
++--------------+----------+
+
++--------------+----------+
+| DEPARTAMENTO | COUNT(*) |
++--------------+----------+
+| Roupas       |       53 |
++--------------+----------+
+
+select * from funcionarios
+where departamento = 'Roupas'
+or
+departamento = 'Filmes';
+
+/*2#--O gestor de marketing pediu a lista das funcionarias que trabalham 
+no departamento de filmes ou no departamento lar. Ele necessita enviar
+um e-mail para as colaboradoras desses dois setores.*/
+
+select count(*), sexo
+from funcionarios
+group by sexo;
+
+
+SELECT * FROM FUNCIONARIOS
+WHERE
+( DEPARTAMENTO = 'Lar' AND SEXO = 'Feminino' )
+OR
+( DEPARTAMENTO = 'Filmes' AND SEXO = 'Feminino' );
+
++----------+-----------+
+| count(*) | sexo      |
++----------+-----------+
+|      491 | Feminino  |
+|      484 | Masculino |
++----------+-----------+
+
+SELECT * FROM FUNCIONARIOS
+WHERE
+( DEPARTAMENTO = 'Lar' AND SEXO = 'Feminino' )
+OR
+( DEPARTAMENTO = 'Filmes' AND SEXO = 'Feminino' );
+
+
+/*#3--Traga os funcionarios do sexo masculino
+--ou os funcionarios que trabalhem no setor Jardim*/
+
+SELECT * FROM FUNCIONARIOS
+WHERE
+SEXO = 'Masculino' OR
+DEPARTAMENTO = 'Jardim';
